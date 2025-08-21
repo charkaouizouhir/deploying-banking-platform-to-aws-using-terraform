@@ -4,16 +4,11 @@ variable "sg_name" {
 variable "vpc_id" {
   type = string
 }
-variable "sg_id" {
-  type = string
-}
-
-variable "ip_protocol" {
-  type = string
-}
-variable "from_port" {
-  type = number
-}
-variable "to_port" {
-  type = number
+variable "ingress_rules" {
+  type = list(object({
+    ip_protocol = string
+    from_port=string
+    to_port=string 
+    cidr_ipv4=string
+  }))
 }

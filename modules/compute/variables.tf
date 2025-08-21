@@ -7,11 +7,11 @@ variable "instance_type" {
 variable "ami" {
   type = string
 }
-variable "sg_id" {
+variable "ec2_sg_id" {
   type = list(string)
 }
-variable "subnet_id" {
-  type = string
+variable "alb_sg_id" {
+  type = list(string)
 }
 
 variable "key_name" {
@@ -19,4 +19,11 @@ variable "key_name" {
 }
 variable "enable_public_ip_address" {
   type = bool
+}
+
+variable "vpc_id" {
+  type = string
+}
+variable "subnet_ids" {
+  type = list(string)
 }
