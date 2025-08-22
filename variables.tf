@@ -13,24 +13,27 @@ variable "private_subnet_cidr" {
 variable "az" {
   type = list(string)
 }
-variable "sg_name" {
+variable "ec2_sg_name" {
   type = string
 }
-variable "vpc_id" {
+variable "alb_sg_name" {
   type = string
 }
-variable "sg_id" {
-  type = string
+variable "ec2_ingress_rules" {
+  type = list(object({
+    ip_protocol = string
+    from_port   = string
+    to_port     = string
+    cidr_ipv4   = string
+  }))
 }
-
-variable "ip_protocol" {
-  type = string
-}
-variable "from_port" {
-  type = number
-}
-variable "to_port" {
-  type = number
+variable "alb_ingress_rules" {
+  type = list(object({
+    ip_protocol = string
+    from_port   = string
+    to_port     = string
+    cidr_ipv4   = string
+  }))
 }
 
 variable "ec2_name" {
@@ -42,13 +45,6 @@ variable "instance_type" {
 variable "ami" {
   type = string
 }
-variable "sg_id" {
-  type = list(string)
-}
-variable "subnet_id" {
-  type = string
-}
-
 variable "key_name" {
   type = string
 }
