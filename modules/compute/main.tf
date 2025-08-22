@@ -1,13 +1,13 @@
 resource "aws_launch_template" "ec2_template" {
-  name = "${var.ec2_name}-launch_template"
+  name          = "${var.ec2_name}-launch_template"
   instance_type = var.instance_type
-  image_id = var.ami
-  key_name = var.key_name
+  image_id      = var.ami
+  key_name      = var.key_name
   network_interfaces {
-    security_groups = var.ec2_sg_id
+    security_groups             = var.ec2_sg_id
     associate_public_ip_address = var.enable_public_ip_address
   }
-    tag_specifications {
+  tag_specifications {
     resource_type = "instance"
     tags = {
       Name = var.ec2_name
@@ -16,11 +16,11 @@ resource "aws_launch_template" "ec2_template" {
 }
 
 resource "aws_lb_target_group" "lb_target_group" {
-  name = "${var.ec2_name}-lb-target-group"
-  vpc_id = var.vpc_id
-    port = 80
-    protocol = "HTTP"
-    health_check {
+  name     = "${var.ec2_name}-lb-target-group"
+  vpc_id   = var.vpc_id
+  port     = 80
+  protocol = "HTTP"
+  health_check {
     path                = "/"
     interval            = 30
     timeout             = 5

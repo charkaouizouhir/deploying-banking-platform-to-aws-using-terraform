@@ -51,7 +51,7 @@ resource "aws_route_table_association" "public_rt_association" {
 }
 #elastic ip for NAT Gateway
 resource "aws_eip" "nat_eip" {
-  count = length(aws_subnet.private_subnet)
+  count  = length(aws_subnet.private_subnet)
   domain = "vpc"
   tags = {
     Name = "nat_eip-${count.index + 1}"
@@ -59,19 +59,19 @@ resource "aws_eip" "nat_eip" {
 }
 # NAT Gateway
 resource "aws_nat_gateway" "nat_gateway" {
-    count             = length(var.private_subnet_cidr)
-    subnet_id     = aws_subnet.public_subnet[count.index].id
-    allocation_id = aws_eip.nat_eip[count.index].id
-    tags = {
+  count         = length(var.private_subnet_cidr)
+  subnet_id     = aws_subnet.public_subnet[count.index].id
+  allocation_id = aws_eip.nat_eip[count.index].id
+  tags = {
     Name = "nat-gateway-${count.index + 1}"
   }
 }
 # Private Route Table 
 resource "aws_route_table" "private_rt" {
-  count = length(aws_subnet.private_subnet)
-   vpc_id = aws_vpc.vpc.id
-   tags = {
-   Name = "private-rt-${count.index + 1}"
+  count  = length(aws_subnet.private_subnet)
+  vpc_id = aws_vpc.vpc.id
+  tags = {
+    Name = "private-rt-${count.index + 1}"
   }
   route {
     cidr_block     = "0.0.0.0/0"
@@ -80,7 +80,7 @@ resource "aws_route_table" "private_rt" {
 }
 # private Route Table association
 resource "aws_route_table_association" "private_rt_association" {
-  count = length(aws_subnet.private_subnet)
+  count          = length(aws_subnet.private_subnet)
   subnet_id      = aws_subnet.private_subnet[count.index].id
   route_table_id = aws_route_table.private_rt[count.index].id
 }

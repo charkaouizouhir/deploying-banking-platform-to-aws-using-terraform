@@ -1,10 +1,10 @@
-terraform { 
-  cloud { 
-    
-    organization = "DXC-BANK" 
+terraform {
+  cloud {
 
-    workspaces { 
-      name = "dxc-bank-workspace" 
-    } 
-  } 
+    organization = "DXC-BANK"
+
+    workspaces {
+      name = "dxc-bank-workspace"
+    }
+  }
 }
